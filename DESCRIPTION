@@ -14,5 +14,6 @@ Imports:
     purrr,
     neuralnet,
     hashmap,
-    testthat
+    testthat,
+    covr
 RoxygenNote: 6.0.1
