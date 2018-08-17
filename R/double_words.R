@@ -3,8 +3,12 @@
 
 
 double_words <- function(matching) {
-  dbls <- list(c('or', 'not'), c('make', 'set'), c('case', 'when'), c('all', 'users'),
-               c('user', 'lock'), c('generate', 'series'), c('wait', 'for'))
+
+  # Define double word combinations
+  dbls <- detectR::doubles$doublewords %>%
+    as.character %>%
+    strsplit(split = " ")
+
   dL <- dbls %>% length
   wList <- matching$wordList
   lens <- wList %>%
@@ -12,14 +16,20 @@ double_words <- function(matching) {
     purrr::flatten_dbl()
 
   # Only modify those that need modified
-  dblInd <- sapply(1:(lens %>% length), function(y) {
-    dblMatch <- sapply(1:dL, function(x) dbls[[x]] %in% wList[[y]] %>% all)
-    if (lens[y] > 1 && dblMatch %>% any) dblMatch %>% which else NULL
-  })
+  dblInd <- sapply(
+    X = 1:(lens %>% length),
+    FUN = function(x) {
+      dblMatch <- sapply(
+        X = x,
+        FUN = function(y) y %in% wList[[x]] %>% all
+      )
+      if (lens[x] > 1 && dblMatch %>% any) dblMatch %>% which else NULL
+    }
+  )
 
   # Create logical vector
   tr <- dblInd %>%
-    purrr::map(function(z) ! is.null(z)) %>%
+    purrr::map(function(z) z %>% is.null %>% `!`()) %>%
     purrr::flatten_lgl()
 
   # Update any matches with the double match
