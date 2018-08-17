@@ -20,7 +20,7 @@ max_token <- function(token) {
   elevate <- if (myCounts %>% sum %>% `==`(0)) 'N' else maliciousTokens[myCounts %>% which.max] %>% toupper
 
   # Get the importance hashmap
-  importance <- elevate %>% anomalytic::token_hash()
+  importance <- elevate %>% detectR::token_hash()
   allowedTokens <- importance$keys()
   tokenLen <- token %>% length
 
@@ -44,7 +44,7 @@ max_token <- function(token) {
   # Get the max subset of token scores within a long string
   scores <- token %>% importance$find()
   ind <- .Fortran(
-    anomalytic:::maxinter,
+    detectR:::maxinter,
     vec = as.double(scores),
     vLen = as.integer(length(scores)),
     currentInd = as.integer(0)

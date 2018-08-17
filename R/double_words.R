@@ -20,7 +20,7 @@ double_words <- function(matching) {
     X = 1:(lens %>% length),
     FUN = function(x) {
       dblMatch <- sapply(
-        X = x,
+        X = dbls,
         FUN = function(y) y %in% wList[[x]] %>% all
       )
       if (lens[x] > 1 && dblMatch %>% any) dblMatch %>% which else NULL
