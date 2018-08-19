@@ -3,6 +3,8 @@
 #' @export
 #'
 #' @useDynLib detectR maxinter distval
+#'
+#' @importFrom magrittr %<>% %>%
 
 
 detectR <- function(x) {
