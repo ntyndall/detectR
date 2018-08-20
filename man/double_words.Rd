@@ -4,5 +4,5 @@
 \alias{double_words}
 \title{Double words}
 \usage{
-double_words(matching)
+double_words(single, dbls)
 }
