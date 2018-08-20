@@ -2,61 +2,47 @@
 #' @export
 
 
-double_words <- function(matching) {
+double_words <- function(single, dbls) {
 
-  # Define double word combinations
-  dbls <- detectR::doubles$doublewords %>%
-    as.character %>%
-    strsplit(split = " ")
-
+  # Loop over all words
   dL <- dbls %>% length
-  wList <- matching$wordList
+  wList <- single$wordList
   lens <- wList %>%
     purrr::map(length) %>%
     purrr::flatten_dbl()
 
   # Only modify those that need modified
   dblInd <- lapply(
-    X = 1:(lens %>% length),
+    X = 1:(dbls %>% length),
     FUN = function(x) {
-      dblMatch <- sapply(
-        X = dbls,
-        FUN = function(y) y %in% wList[[x]] %>% all
-      )
-      if (lens[x] > 1 && dblMatch %>% any) dblMatch %>% which else NULL
+      if (wList %>% length %>% `>`(1) %>% `&`(dbls[[x]] %in% wList %>% all)) x else NULL
     }
   ) %>%
     purrr::flatten_dbl()
 
-  # Create logical vector
-  tr <- dblInd %>%
-    purrr::map(function(z) z %>% is.null %>% `!`()) %>%
-    purrr::flatten_lgl()
-
   # Update any matches with the double match
-  if (tr %>% any) {
-    toUpdate <- tr %>% which
-    for (i in 1:(toUpdate %>% length)) {
-      ind <- toUpdate[i]
-
+  if (dblInd %>% length %>% `>`(0)) {
+    for (i in 1:(dblInd %>% length)) {
       # Matching double barrel name
-      doubleMatch <- dbls %>% `[[`(dblInd %>% `[[`(ind))
+      doubleMatch <- dbls %>%
+        `[[`(dblInd %>% `[[`(i))
 
       # Get the matched double barrel
-      dMatch <- doubleMatch %>% match(matching$wordList[[ind]])
+      dMatch <- doubleMatch %>%
+        match(single$wordList)
 
-      wL <- matching$wordList[[ind]]
-      iL <- matching$indexes[[ind]]
+      wL <- single$wordList
+      iL <- single$indexes
 
       doubleSplit <- doubleMatch
       doubleMatch %<>% paste(collapse = '')
 
       # Collapse the token down
       rm <- iL[dMatch]
-      splt <- matching$tokenList[[ind]]
+      splt <- single$tokenList
       splt %<>% `[`(c(1:(splt %>% length))[-c(rm[1]:(rm[2] - 1))])
       if (rm[2] > splt %>% length) splt[rm[1]] <- 'w' else splt[rm[2]] <- 'w'
-      matching$tokenList[[ind]] <- splt
+      single$tokenList <- splt
 
       # Create a vector of other indexes
       vecLen <- wL %>% length
@@ -81,9 +67,9 @@ double_words <- function(matching) {
       }
 
       # Update lists here
-      matching$wordList[[ind]] <- update$wordList
-      matching$indexes[[ind]] <- update$indexes
+      single$wordList <- update$wordList
+      single$indexes <- update$indexes
     }
   }
-  return(matching)
+  return(single)
 }
