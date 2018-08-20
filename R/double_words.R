@@ -5,11 +5,7 @@
 double_words <- function(single, dbls) {
 
   # Loop over all words
-  dL <- dbls %>% length
   wList <- single$wordList
-  lens <- wList %>%
-    purrr::map(length) %>%
-    purrr::flatten_dbl()
 
   # Only modify those that need modified
   dblInd <- lapply(
@@ -51,7 +47,8 @@ double_words <- function(single, dbls) {
       # Make sure the diff in indexes is always 1
       includeInd <- setdiff(allInd, dMatch)
       update <- if (includeInd %>% length %>% `>`(0)) {
-        vecLog <- wL %>% `==`(doubleSplit)
+        vecLog <- FALSE %>% rep(vecLen)
+        vecLog[dMatch] <- TRUE
         inds <- vecLog %>% which
         wL %<>%
           `[`(-inds) %>%
