@@ -15,19 +15,22 @@ attack_keywords <- function() {
       as.character
   }
 
-  # Save attack words as a list
+  # Save attack words as a list of hashmaps
   attackWords <<- list(
     SQLi = hashmap::hashmap(
       keys = a.data %>% sub_type("s"),
-      values = a.data$type %>% `==`("s") %>% sum
+      values = "s" %>% rep(a.data$type %>% `==`("s") %>% sum)
     ),
     XSS = hashmap::hashmap(
       keys = a.data %>% sub_type("x"),
-      values = a.data$type %>% `==`("x") %>% sum
+      values = "x" %>% rep(a.data$type %>% `==`("x") %>% sum)
     ),
     BASH =  hashmap::hashmap(
       keys = a.data %>% sub_type("b"),
-      values = a.data$type %>% `==`("b") %>% sum
+      values = "b" %>% rep(a.data$type %>% `==`("b") %>% sum)
     )
   )
+
+  # Return the list of hashmaps
+  return(attackWords)
 }
