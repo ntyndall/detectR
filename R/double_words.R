@@ -16,7 +16,7 @@ double_words <- function(matching) {
     purrr::flatten_dbl()
 
   # Only modify those that need modified
-  dblInd <- sapply(
+  dblInd <- lapply(
     X = 1:(lens %>% length),
     FUN = function(x) {
       dblMatch <- sapply(
@@ -25,7 +25,8 @@ double_words <- function(matching) {
       )
       if (lens[x] > 1 && dblMatch %>% any) dblMatch %>% which else NULL
     }
-  )
+  ) %>%
+    purrr::flatten_dbl()
 
   # Create logical vector
   tr <- dblInd %>%
@@ -64,26 +65,17 @@ double_words <- function(matching) {
       # Make sure the diff in indexes is always 1
       includeInd <- setdiff(allInd, dMatch)
       update <- if (includeInd %>% length %>% `>`(0)) {
-        # There are three conditions here?
-        bf <- function() c(1:(dMatch[1] - 1))
-        af <- function() c((dMatch[2] + 1):vecLen)
+        vecLog <- wL %>% `==`(doubleSplit)
+        inds <- vecLog %>% which
+        wL %<>%
+          `[`(-inds) %>%
+          append(values = doubleMatch, after = inds[1] - 1)
 
-        if (wL[c(1, 2)] %>% `==`(doubleSplit) %>% all) {
-          list(
-            wordList = c(doubleMatch, wL[af()]),
-            indexes = c(dMatch[1], iL[af()] %>% `-`(2))
-          )
-        } else if (wL[c(vecLen - 1, vecLen)] %>% `==`(doubleSplit) %>% all) {
-          list(
-            wordList = c(wL[bf()], doubleMatch),
-            indexes = c(iL[bf()], dMatch[2])
-          )
-        } else {
-          list(
-            wordList = c(wL[bf()], doubleMatch, wL[af()]),
-            indexes = c(iL[bf()], iL[dMatch[1]], iL[af()] %>% `-`(2))
-          )
-        }
+        # Subtract by two towards the end
+        if (inds[2] %>% `<`(iL %>% length)) iL[(inds[2] + 1):(iL %>% length)] %<>% `-`(2)
+        iL <- c(iL %>% `[`(!vecLog), iL %>% `[`(inds[1])) %>% sort
+
+        list(wordList = wL, indexes = iL)
       } else {
         list(wordList = doubleMatch, indexes = dMatch[1])
       }
