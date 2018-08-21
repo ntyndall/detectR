@@ -24,7 +24,7 @@ attack_counts <- function(matching, attackWords) {
         aType <- if (x == 1) 'x' else if (x == 2) 'y' else 'z'
         for (i in 1:replLen) {
           j <- toRepl[i]
-          matching[[j]]$tokenList[matching[[j]]$indexes[atks[[j]]]] <- aType
+          matching[[j]]$tokenList[matching[[j]]$indexes[atks[[j]]]] <<- aType
         }
       }
 
