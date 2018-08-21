@@ -1,4 +1,13 @@
 #' @title Token hash
+#'
+#' @param elevate A character string which is one of;
+#'  \itemize{
+#'    \item{\code{N} : To indicate a normal classified string.}
+#'    \item{\code{X} : To indicate a SQLi classified string.}
+#'    \item{\code{Y} : To indicate a XSS classified string.}
+#'    \item{\code{Z} : To indicate a Bash classified string.}
+#'  }
+#'
 #' @export
 
 
