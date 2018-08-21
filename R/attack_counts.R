@@ -36,5 +36,10 @@ attack_counts <- function(matching, attackWords) {
   )
 
   # Create a matrix from the counts and return back
-  return(counts %>% matrix(ncol = 3))
+  return(
+    list(
+      counts = counts %>% matrix(ncol = 3),
+      matched = matching
+    )
+  )
 }

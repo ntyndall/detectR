@@ -35,18 +35,18 @@ features <- function(args) {
   )
 
   # Replace and count all attack words with specialised tokens
-  counts <- matching %>%
+  results <- matching %>%
     detectR::attack_counts(
       attackWords = detectR::attack_keywords()
     )
 
   # Shouldn't need to collapse them (but keep for now)
-  escores <- matching %>%
+  escores <- results$matching %>%
     purrr::map("tokenList") %>%
     lapply(function(x) x %>% paste(collapse = ''))
     sapply(detectR::max_from_list) %>%
     matrix(ncol = 1)
 
   # Column bind the two results together
-  return(cbind(scores, escores, chardist, counts))
+  return(cbind(scores, escores, chardist, results$counts))
 }
