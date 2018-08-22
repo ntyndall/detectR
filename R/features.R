@@ -40,7 +40,7 @@ features <- function(args) {
     )
 
   # Shouldn't need to collapse them (but keep for now)
-  escores <- results$matching %>%
+  escores <- results$matched %>%
     purrr::map("tokenList") %>%
     lapply(function(x) x %>% paste(collapse = '')) %>%
     detectR::max_from_list()
