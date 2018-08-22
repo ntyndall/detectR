@@ -11,8 +11,6 @@ matching <- list(
   list
 
 
-
-
 # Begin tests
 test_that("Make sure a normal string returns 0 for all attack counts", {
 

@@ -8,13 +8,12 @@
 #' @export
 
 
-max_token <- function(token) {
+max_token <- function(token, maliciousTokens = c("x", "y", "z")) {
   token %<>%
     strsplit(split = '') %>%
     purrr::flatten_chr()
 
-  # Find out what it could be...
-  maliciousTokens <- c('x', 'y', 'z')
+  # Find out what it is most likely to be
   get_counts <- function(x) x %>% `==`(token) %>% sum
   myCounts <- maliciousTokens %>% sapply(get_counts) %>% as.integer
   elevate <- if (myCounts %>% sum %>% `==`(0)) 'N' else maliciousTokens[myCounts %>% which.max] %>% toupper

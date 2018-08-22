@@ -11,7 +11,7 @@
 #' @export
 
 
-token_hash <- function(elevate) { # start nocov
+token_hash <- function(elevate) { # nocov start
   # Load Current token scores
   t.scores <- detectR::t.scores
 
@@ -19,7 +19,7 @@ token_hash <- function(elevate) { # start nocov
   return(
     hashmap::hashmap(
       keys = t.scores$tokens,
-      values = t.scores %>% `[[`("elevate") %>% as.integer
+      values = t.scores %>% `[[`(elevate) %>% as.integer
     )
   )
-} # end nocov
+} # nocov end
