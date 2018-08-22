@@ -4,7 +4,7 @@
 \alias{max_token}
 \title{Max token Score}
 \usage{
-max_token(token)
+max_token(token, maliciousTokens = c("x", "y", "z"))
 }
 \arguments{
 \item{token}{A character string representing the tokenization

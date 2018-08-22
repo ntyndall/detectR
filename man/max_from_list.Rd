@@ -4,10 +4,10 @@
 \alias{max_from_list}
 \title{Get Max Token From List}
 \usage{
-max_from_list(tokenList)
+max_from_list(tokenVec)
 }
 \arguments{
-\item{tokenList}{A list of tokens plus scores.}
+\item{tokenVec}{A vector of tokens plus scores.}
 }
 \value{
 A vector of numerical values representing the tokenzied
