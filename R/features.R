@@ -15,8 +15,7 @@ features <- function(args) {
 
   # Split by spaces / collapse string / create a matrix of column 1
   scores <- tokens %>%
-    sapply(detectR::max_from_list) %>%
-    matrix(ncol = 1)
+    detectR::max_from_list()
 
   # Create a list object to do matching on
   matching <- detectR::parse_words(
@@ -43,9 +42,8 @@ features <- function(args) {
   # Shouldn't need to collapse them (but keep for now)
   escores <- results$matching %>%
     purrr::map("tokenList") %>%
-    lapply(function(x) x %>% paste(collapse = ''))
-    sapply(detectR::max_from_list) %>%
-    matrix(ncol = 1)
+    lapply(function(x) x %>% paste(collapse = '')) %>%
+    detectR::max_from_list()
 
   # Column bind the two results together
   return(cbind(scores, escores, chardist, results$counts))

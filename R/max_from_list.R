@@ -13,8 +13,10 @@
 
 max_from_list <- function(tokenList) {
   return(
-    tokenList %>% lapply(detectR::max_token) %>%
+    tokenList %>%
+      lapply(detectR::max_token) %>%
       purrr::map('score') %>%
-      purrr::flatten_dbl()
+      purrr::flatten_dbl() %>%
+      matrix(ncol = 1)
   )
 }
