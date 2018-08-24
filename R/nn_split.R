@@ -5,7 +5,14 @@
 nn_split <- function(allData, split = 70) {
 
   # Report on function
-  cat(' \n ## Splitting the data set :', split, '/', 100 %>% `-`(split), '.\n')
+  cat(
+    crayon::cyan(
+      paste0(
+        " \n ## Splitting the data set : ",
+        split, " / ", 100 %>% `-`(split), ".\n"
+      )
+    )
+  )
 
   # Create Split (any column is fine)
   split.data <- allData$N %>%

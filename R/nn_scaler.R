@@ -5,9 +5,15 @@
 nn_scaler <- function(allData, dataScales) {
 
   # Report on function
-  cat(' \n ## Scaling the data set with : \n',
-      '##    Features :', dataScales$features %>% length, '\n',
-      '##    Labels :', dataScales$labels %>% length, '\n')
+  cat(
+    crayon::cyan(
+      paste0(
+        " \n ## Scaling the data set with : \n",
+        " ##    Features : ", dataScales$features %>% length, "\n",
+        " ##    Labels : ", dataScales$labels %>% length, "\n"
+      )
+    )
+  )
 
   # Use scale() and convert the resulting matrix to a data frame
   scaled.data <- allData[ , dataScales$features] %>%

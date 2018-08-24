@@ -5,7 +5,7 @@
 nn_test <- function(testData, dataScales, nn, arguments = NULL) {
 
   # Report on function
-  cat(' \n ## Creating predictions and building confusion matrix ## \n')
+  cat(crayon::cyan(" \n ## Creating predictions and building confusion matrix ## \n"))
 
   # Initialise empty dataframe
   testResults <- data.frame(stringsAsFactors = FALSE)
@@ -51,10 +51,10 @@ nn_test <- function(testData, dataScales, nn, arguments = NULL) {
   myT <- table(OTHER, NN)
 
   # Print the confusion matrix of results
-  cat(' ## Confusion matrix ## \n\n')
+  cat(crayon::cyan(" ## Confusion matrix ## \n\n"))
   confMat <- caret::confusionMatrix(data = myT)
   print(confMat)
-  cat('\n --------------------------------------------------------- \n')
+  cat(crayon::cyan("\n --------------------------------------------------------- \n"))
 
   # Return the FP / FN results as a data frame
   return(
