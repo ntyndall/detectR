@@ -23,10 +23,19 @@ d.set <- rbind(
 
 # Build the feature sets
 d.features <- d.set$argument %>%
-  detectR::detectR()
+  detectR::features()
 
 # Append the labels onto the data set
 d.features$label <- d.set$label
+
+emptyFeats <- d.features %>% apply(
+  MARGIN = 2,
+  FUN = function(x) x %>% unique %>% length
+) %>% as.double
+
+if (emptyFeats %>% `==`(1) %>% any) {
+  d.features %<>% subset(select = names(d.features) %>% `[`(emptyFeats %>% `!=`(1) %>% which))
+}
 
 # Build the model ...
 results <- d.features %>%

@@ -5,7 +5,7 @@
 nn_build <- function(training, dataScales) {
 
   # Report on function
-  cat('\n ## Building neural network ## \n')
+  cat(crayon::cyan("\n ## Building neural network ## \n"))
 
   f <- paste0(
     dataScales$labels %>% paste(collapse = " + "),

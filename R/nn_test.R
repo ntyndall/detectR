@@ -54,7 +54,7 @@ nn_test <- function(testData, dataScales, nn, arguments = NULL) {
   cat(crayon::cyan(" ## Confusion matrix ## \n\n"))
   confMat <- caret::confusionMatrix(data = myT)
   print(confMat)
-  cat(crayon::cyan("\n --------------------------------------------------------- \n"))
+  cat("\n --------------------------------------------------------- \n")
 
   # Return the FP / FN results as a data frame
   return(
