@@ -4,37 +4,44 @@
 
 prepare <- function() {
   # Load the large HTTP data set as d.http
-  load(file = system.file("extdata", "http.rda", package = "detectR"))
+  load(file = system.file("extdata", "d.http.rda", package = "detectR"))
 
+  # Logical vector
+  lgc <- d.http$method %>% `==`("GET")
+
+  # Loop over query args and request bodies
   d.normal <- data.frame(stringsAsFactors = FALSE)
-  for (i in 1:(totalData %>% nrow)) {
-    slice <- d.http[i, ]
+  for (i in 1:2) {
+    strs <- if (i == 1) {
+      d.http %>%
+        subset(lgc, select = "requestFirstLine") %>%
+        `[[`("requestFirstLine")
+    } else {
+      "www.test.com/?" %>%
+        paste0(
+          d.http %>%
+            subset(lgc %>% `!`(), select = "requestBody") %>%
+            `[[`("requestBody")
+        )
+    }
 
-    string <- if (slice$method == 'GET') slice$requestFirstLine else slice$requestBody
-
-    if (string %>% nchar %>% `<`(1)) next
-
-    # Get the arguments from the request method
-    argsToRep <- string %>%
+    # Only take the supplied arguments
+    arguments <- strs %>%
       strsplit(split = ' ') %>%
       purrr::map(1) %>%
       purrr::flatten_chr() %>%
-      detectR::split_args()
+      detectR::split_args() %>%
+      `[[`("args") %>%
+      gsub(pattern = '[+]', replacement = ' ')
 
-    # If args exist then analyse them
-    nRo <- argsToRep %>% nrow
-    if (nRo %>% `>`(0)) {
-      arguments <- argsToRep$args %>% gsub(pattern = '[+]', replacement = ' ')
-      results <- c()
-      #for (j in 1:nRo) results %<>% c(arguments[j] %>% detect_attacks())
-      d.normal %<>% rbind(
-        data.frame(
-          argument = arguments,
-          label = "N",
-          stringsAsFactors = FALSE
-        )
+    # Append to data frame
+    d.normal %<>% rbind(
+      data.frame(
+        argument = arguments,
+        label = "N",
+        stringsAsFactors = FALSE
       )
-    }
+    )
   }
 
   # Save the data set
