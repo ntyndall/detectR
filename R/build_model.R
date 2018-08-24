@@ -8,25 +8,26 @@
 #' @export
 
 
-builder <- function(d.set, normalData = 2000, percent = 80) {
+builder <- function(d.features, normalData = 2000, percent = 80) {
+
 
   # Sample the data set first
-  d.set %<>% detectR::nn_sample(
+  d.features %<>% detectR::nn_sample(
     normalData = normalData,
     percent = percent
   )
 
   # Generate scales based on d.set
-  dataScales <- d.set %>%
+  dataScales <- d.features %>%
     detectR::nn_gen_scales()
 
   # Actually scale any data required (then split it up)
-  d.set %<>% detectR::nn_scaler(
+  d.features %<>% detectR::nn_scaler(
     dataScales = dataScales
   )
 
   # Split the data set up into training / testing
-  train.test <- d.set %>%
+  train.test <- d.features %>%
     detectR::nn_split()
 
   # Build a neural network
