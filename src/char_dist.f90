@@ -1,10 +1,9 @@
   subroutine distval(values, vecLen, icd)
 
   implicit real*8(A-H,O-Z)
-  integer :: icd(6), bins(6), vecLen, i = 1, j, sumVec
-  integer :: values(vecLen), bVal = 2
-  logical :: whichBin
+  integer :: icd(6), bins(6), vecLen, i, j, sumVec, values(vecLen), bVal
   integer, allocatable :: newVec(:), zeros(:), nonzeros(:)
+  logical :: whichBin
 
   allocate(newVec(vecLen - 1))
   bins = (/ 1, 4, 7, 12, 16, 256 /)
@@ -13,6 +12,8 @@
   newVec = values(2:vecLen)
   sumVec = sum(newVec)
   whichBin = .true.
+  bVal = 2
+  i = 1
 
   ! Figure out how to allocate the bins
   do while (whichBin)
