@@ -46,5 +46,10 @@ features <- function(args) {
     detectR::max_from_list()
 
   # Column bind the two results together
-  return(cbind(scores, escores, chardist, results$counts))
+  feat.set <- cbind(scores, escores, chardist, results$counts) %>%
+    as.data.frame
+  names(feat.set) <- detectR::feat_names()
+
+  # And return data frame back
+  return(feat.set)
 }
