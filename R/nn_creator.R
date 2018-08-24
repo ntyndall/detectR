@@ -1,4 +1,4 @@
-#' @title Builder
+#' @title Neural Network Creator
 #'
 #' @param trainingData A data frame that contains attack strings, types, and
 #'  labels, followed by columns with any number of anomaly features for building
@@ -8,8 +8,7 @@
 #' @export
 
 
-builder <- function(d.features, normalData = 2000, percent = 80) {
-
+nn_creator <- function(d.features, normalData = 2000, percent = 80) {
 
   # Sample the data set first
   d.features %<>% detectR::nn_sample(
