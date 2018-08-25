@@ -3,7 +3,7 @@
 #' @export
 
 
-builder <- function(posClass = "N", normalData = 2000, percent = 80, ...) {
+builder <- function(posClass = "N", saveData = FALSE, normalData = 2000, percent = 80, ...) {
   # Log header details first
   cat(crayon::magenta(" --{ Building Neural Network Model }-- \n "))
 
@@ -71,8 +71,13 @@ builder <- function(posClass = "N", normalData = 2000, percent = 80, ...) {
   cat(crayon::cyan(" }-- \n"))
 
   # ... and save it
-  cat(crayon::cyan(" --{ Saving to /data/"))
-  save(results$nn, file = getwd() %>% paste0("/data/nn.rda"))
-  save(results$dataScales, file = getwd() %>% paste0("/data/dataScales.rda"))
-  cat(crayon::cyan(" }-- \n"))
+  if (saveData) {
+    cat(crayon::cyan(" --{ Saving to /data/"))
+    save(results$nn, file = getwd() %>% paste0("/data/nn.rda"))
+    save(results$dataScales, file = getwd() %>% paste0("/data/dataScales.rda"))
+    cat(crayon::cyan(" }-- \n"))
+  }
+
+  # Return the results back
+  return(results)
 }
