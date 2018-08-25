@@ -4,5 +4,5 @@
 \alias{nn_sample}
 \title{Neural Network Data Sample}
 \usage{
-nn_sample(trainingData, normalData = 2000, percent = 80)
+nn_sample(trainingData, posClass = "N", normalData = 2000, percent = 80)
 }

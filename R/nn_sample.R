@@ -2,7 +2,7 @@
 #' @export
 
 
-nn_sample <- function(trainingData, normalData = 2000, percent = 80) {
+nn_sample <- function(trainingData, posClass = "N", normalData = 2000, percent = 80) {
 
   # Report on function
   maliciousData <- normalData %>% `*`(1 %>% `-`(percent %>% `/`(100)))
@@ -20,13 +20,19 @@ nn_sample <- function(trainingData, normalData = 2000, percent = 80) {
   uLen <- uniqLabels %>% length
 
   # Make sure requisites are met.
+  if (posClass %in% uniqLabels %>% `!`()) stop(crayon::red(" ## Training data must contain NORMAL traffic."))
+  if (trainingData$label %>% `==`(posClass) %>% sum %>% `<`(normalData)) {
+    stop(crayon::red(" ## Increase data for positive class, or decrease `normalData` input."))
+  }
   if (uLen %>% `==`(1)) stop(crayon::red(" ## Select at least 2 unique type classes."))
-  if ('N' %in% uniqLabels %>% `!`()) stop(crayon::red(" ## Training data must contain NORMAL traffic."))
+  if (trainingData$label %>% `!=`(posClass) %>% sum %>% `<`(maliciousData)) {
+    stop(crayon::red(" ## Increase data for negative classes, or decrease `normalData` input."))
+  }
   if (trainingData$type %>% unique %>% length %>% `==`(1)) trainingData$type <- NULL
 
   # Make sure normal data is ordered and subsetted first
   # e.g. 'S', 'N', 'X' --> 'N', 'S', 'X'
-  uniqLabels <- c('N', uniqLabels %>% subset(uniqLabels != 'N'))
+  uniqLabels <- c(posClass, uniqLabels %>% subset(uniqLabels != posClass))
 
   # Create a combined data set on types
   allData <- data.frame(stringsAsFactors = FALSE)

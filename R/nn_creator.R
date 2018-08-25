@@ -8,10 +8,11 @@
 #' @export
 
 
-nn_creator <- function(d.features, normalData = 2000, percent = 80) {
+nn_creator <- function(d.features, posClass = "N", normalData = 2000, percent = 80) {
 
   # Sample the data set first
   d.features %<>% detectR::nn_sample(
+    posClass = posClass,
     normalData = normalData,
     percent = percent
   )
