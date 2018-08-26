@@ -3,7 +3,7 @@
 #' @export
 
 
-builder <- function(posClass = "N", saveData = FALSE, normalData = 2000, percent = 80, ...) {
+builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, percent = 80) {
   # Log header details first
   cat(crayon::magenta(" --{ Building Neural Network Model }-- \n "))
 

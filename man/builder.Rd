@@ -4,5 +4,6 @@
 \alias{builder}
 \title{Builder}
 \usage{
-builder(posClass = "N", normalData = 2000, percent = 80, ...)
+builder(..., posClass = "N", saveData = FALSE, normalData = 2000,
+  percent = 80)
 }
