@@ -5,6 +5,16 @@
 [![codecov](https://codecov.io/gh/ntyndall/detectR/branch/master/graph/badge.svg)](https://codecov.io/gh/ntyndall/detectR)
 
 # Installation
+```r
+# Run this as a script
+library(devtools)
+
+devtools::install_github(
+  repo = "ntyndall/detectR"
+)
+
+library(detectR)
+```
 
 # Guide
 ### Usage
