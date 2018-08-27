@@ -43,7 +43,7 @@ test_that("Replace illegal characters such as euro sign", {
   result <- args %>% detectR::split_args()
 
   expect_is( result, "data.frame" )
-  expect_equal( result %>% nrow, 3 )
+  expect_equal( result %>% nrow, 1 )
   expect_equal( result$argNames, "test" )
   expect_equal( result$args, "arg*" )
 

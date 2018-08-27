@@ -4,12 +4,13 @@
 test_that("Test that a neural network can be build", {
 
   result <- detectR::builder(
-    normalData = 1000,
+    normalData = 100,
     percent = 80,
-    detectR::d.normal[1:1000, ],
-    detectR::d.sqli[1:205, ],
-    detectR::d.xss[1:205, ],
-    detectR::d.bash[1:205, ]
+    logs = T,
+    detectR::d.normal[1:100, ],
+    detectR::d.sqli[1:50, ],
+    detectR::d.xss[1:50, ],
+    detectR::d.bash[1:50, ]
   )
 
   expect_is( result, "list" )

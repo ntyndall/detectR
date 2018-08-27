@@ -8,7 +8,7 @@ test_that("Can a feature set be created", {
   results <- args %>%
     detectR::features()
 
-  expect_is( results, "matrix" )
+  expect_is( results, "data.frame" )
   expect_equal( results %>% nrow, 1 )
 
 })
