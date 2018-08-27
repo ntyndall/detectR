@@ -13,7 +13,8 @@ nn_test <- function(testData, dataScales, nn, logs, arguments = NULL) {
   # Compute Predictions off Test Set
   predictions <- neuralnet::compute(
     x = nn,
-    covariate = testData[ , dataScales$features])
+    covariate = testData[ , dataScales$features]
+  )
 
   # Create vectors to measure accuracy
   realVec <- predVec <- '' %>% rep(testData %>% nrow)

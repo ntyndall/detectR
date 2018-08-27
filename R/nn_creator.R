@@ -36,7 +36,6 @@ nn_creator <- function(d.features, logs, posClass = "N", normalData = 2000, perc
       logs = logs
     )
 
-  print("about to train?")
   # Build a neural network
   nn <- train.test$train %>%
     detectR::nn_build(

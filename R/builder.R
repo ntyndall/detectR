@@ -5,7 +5,7 @@
 
 builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, percent = 80, logs = TRUE) {
   # Log header details first
-  cat(crayon::magenta(" --{ Building Neural Network Model }-- \n\n"))
+  cat(crayon::magenta("\n\n --{ Building Neural Network Model }-- \n\n"))
 
   # Check input first
   input <- list(...)

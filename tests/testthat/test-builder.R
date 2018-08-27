@@ -1,7 +1,7 @@
 
 
 # Begin tests
-test_that("Test that a neural network can be build", {
+test_that("Test that a neural network can be built", {
 
   result <- detectR::builder(
     normalData = 100,

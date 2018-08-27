@@ -20,6 +20,7 @@ Imports:
     caret,
     testthat,
     organisR,
+    e1071,
     covr
 Remotes: ntyndall/organisR
 RoxygenNote: 6.0.1
