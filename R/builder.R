@@ -28,7 +28,7 @@ builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, pe
     # Make sure all column names are the same, even if they are already
     for (i in input) names(i) <- c("argument", "label")
     input %>% purrr::reduce(rbind)
-  } else {
+  } else { # start nocov
     # Make sure the normal data set is built
     fName <- getwd() %>%
       paste0("/data/d.normal.rda")
@@ -50,7 +50,7 @@ builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, pe
       detectR::d.xss,
       detectR::d.bash
     )
-  }
+  } # end nocov
 
   # Build the feature sets
   cat(crayon::cyan(" --{ Building feature set"))
