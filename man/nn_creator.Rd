@@ -4,7 +4,8 @@
 \alias{nn_creator}
 \title{Neural Network Creator}
 \usage{
-nn_creator(d.features, posClass = "N", normalData = 2000, percent = 80)
+nn_creator(d.features, posClass = "N", normalData = 2000, percent = 80,
+  logs)
 }
 \arguments{
 \item{normalData}{An integer}

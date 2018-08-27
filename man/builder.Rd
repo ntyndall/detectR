@@ -5,5 +5,5 @@
 \title{Builder}
 \usage{
 builder(..., posClass = "N", saveData = FALSE, normalData = 2000,
-  percent = 80)
+  percent = 80, logs = TRUE)
 }

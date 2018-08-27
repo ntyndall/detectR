@@ -2,18 +2,20 @@
 #' @export
 
 
-nn_scaler <- function(allData, dataScales) {
+nn_scaler <- function(allData, dataScales, logs) {
 
   # Report on function
-  cat(
-    crayon::cyan(
-      paste0(
-        " \n ## Scaling the data set with : \n",
-        " ##    Features : ", dataScales$features %>% length, "\n",
-        " ##    Labels : ", dataScales$labels %>% length, "\n"
+  if (logs) {
+    cat(
+      crayon::cyan(
+        paste0(
+          " \n ## 3) Scaling the data set with : \n",
+          "       Features : ", dataScales$features %>% length, "\n",
+          "       Labels : ", dataScales$labels %>% length, "\n"
+        )
       )
     )
-  )
+  }
 
   # Use scale() and convert the resulting matrix to a data frame
   scaled.data <- allData[ , dataScales$features] %>%

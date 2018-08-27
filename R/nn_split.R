@@ -2,17 +2,19 @@
 #' @export
 
 
-nn_split <- function(allData, split = 70) {
+nn_split <- function(allData, logs, split = 70) {
 
   # Report on function
-  cat(
-    crayon::cyan(
-      paste0(
-        " \n ## Splitting the data set : ",
-        split, " / ", 100 %>% `-`(split), ".\n"
+  if (logs) {
+    cat(
+      crayon::cyan(
+        paste0(
+          " \n ## 4) Splitting the data set : ",
+          split, " / ", 100 %>% `-`(split), ".\n"
+        )
       )
     )
-  )
+  }
 
   # Create Split (any column is fine)
   split.data <- allData$N %>%

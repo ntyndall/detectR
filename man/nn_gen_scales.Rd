@@ -4,5 +4,5 @@
 \alias{nn_gen_scales}
 \title{Neural Network Calculate Scales}
 \usage{
-nn_gen_scales(allData, infCols = 1)
+nn_gen_scales(allData, logs, infCols = 1)
 }

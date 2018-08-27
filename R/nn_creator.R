@@ -8,39 +8,47 @@
 #' @export
 
 
-nn_creator <- function(d.features, posClass = "N", normalData = 2000, percent = 80) {
+nn_creator <- function(d.features, posClass = "N", normalData = 2000, percent = 80, logs) {
 
   # Sample the data set first
   d.features %<>% detectR::nn_sample(
     posClass = posClass,
     normalData = normalData,
-    percent = percent
+    percent = percent,
+    logs = logs
   )
 
   # Generate scales based on d.set
   dataScales <- d.features %>%
-    detectR::nn_gen_scales()
+    detectR::nn_gen_scales(
+      logs = logs
+    )
 
   # Actually scale any data required (then split it up)
   d.features %<>% detectR::nn_scaler(
-    dataScales = dataScales
+    dataScales = dataScales,
+    logs = logs
   )
 
   # Split the data set up into training / testing
   train.test <- d.features %>%
-    detectR::nn_split()
+    detectR::nn_split(
+      logs = logs
+    )
 
   # Build a neural network
   nn <- train.test$train %>%
     detectR::nn_build(
-      dataScales = dataScales
+      dataScales = dataScales,
+      logs = logs
     )
 
   # Test predictions
   testResults <- train.test$test %>%
     detectR::nn_test(
       dataScales = dataScales,
-      nn = nn
+      nn = nn,
+      logs = logs
     )
 
   # Return the neural network and the data scales

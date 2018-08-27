@@ -4,5 +4,5 @@
 \alias{nn_split}
 \title{Neural Network Split Data}
 \usage{
-nn_split(allData, split = 70)
+nn_split(allData, logs, split = 70)
 }

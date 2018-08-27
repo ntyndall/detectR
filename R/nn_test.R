@@ -2,10 +2,10 @@
 #' @export
 
 
-nn_test <- function(testData, dataScales, nn, arguments = NULL) {
+nn_test <- function(testData, dataScales, nn, logs, arguments = NULL) {
 
   # Report on function
-  cat(crayon::cyan(" \n ## Creating predictions and building confusion matrix ## \n"))
+  if (logs) cat(crayon::cyan(" \n ## 6) Creating predictions and building confusion matrix ## \n"))
 
   # Initialise empty dataframe
   testResults <- data.frame(stringsAsFactors = FALSE)
@@ -51,10 +51,8 @@ nn_test <- function(testData, dataScales, nn, arguments = NULL) {
   myT <- table(OTHER, NN)
 
   # Print the confusion matrix of results
-  cat(crayon::cyan(" ## Confusion matrix ## \n\n"))
   confMat <- caret::confusionMatrix(data = myT)
-  print(confMat)
-  cat("\n --------------------------------------------------------- \n")
+  if (logs) print(confMat)
 
   # Return the FP / FN results as a data frame
   return(

@@ -2,10 +2,10 @@
 #' @export
 
 
-nn_build <- function(training, dataScales) {
+nn_build <- function(training, dataScales, logs) {
 
   # Report on function
-  cat(crayon::cyan("\n ## Building neural network ## \n"))
+  if (logs) cat(crayon::cyan("\n ## 5) Building neural network ## \n"))
 
   f <- paste0(
     dataScales$labels %>% paste(collapse = " + "),
@@ -23,14 +23,14 @@ nn_build <- function(training, dataScales) {
     `+`(1)
 
   # Build the neural network
-  cat(" ## ")
+  if (logs) cat(" ## ")
   nn <- neuralnet::neuralnet(
     formula = f,
     data = training,
     hidden = neurons %>% rep(2),
     act.fct = "logistic",
     linear.output = FALSE,
-    lifesign = 'minimal',
+    lifesign = if (logs) 'minimal' else "none",
     stepmax = 1000000
   )
 

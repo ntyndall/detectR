@@ -2,11 +2,12 @@
 #' @export
 
 
-nn_gen_scales <- function(allData, infCols = 1) {
+nn_gen_scales <- function(allData, logs, infCols = 1) {
 
   # Report on function
-  cat(crayon::cyan(" \n ## Creating scales for manipulating training and testing datasets. \n"))
-
+  if (logs) {
+    cat(crayon::cyan(" \n ## 2) Creating scales for manipulating training and testing datasets. \n"))
+  }
   # Convert to integers (3 is the standard non-feature part of the data set)
   totCols <- ncol(allData) %>% `-`(1)
   features <- allData[ , infCols:totCols] %>% names

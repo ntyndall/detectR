@@ -4,5 +4,5 @@
 \alias{nn_test}
 \title{Neural Network Predictions}
 \usage{
-nn_test(testData, dataScales, nn, arguments = NULL)
+nn_test(testData, dataScales, nn, logs, arguments = NULL)
 }

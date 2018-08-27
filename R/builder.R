@@ -3,9 +3,9 @@
 #' @export
 
 
-builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, percent = 80) {
+builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, percent = 80, logs = TRUE) {
   # Log header details first
-  cat(crayon::magenta(" --{ Building Neural Network Model }-- \n "))
+  cat(crayon::magenta(" --{ Building Neural Network Model }-- \n\n"))
 
   # Check input first
   input <- list(...)
@@ -37,9 +37,10 @@ builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, pe
     if (fName %>% file.exists) {
       d.normal <- detectR::d.normal
     } else {
-      cat(crayon::cyan(" --{ Building normal data \n"))
+      cat(crayon::cyan(" --{ Building normal data "))
       detectR::prepare()
       load(file = fName)
+      cat(crayon::cyan("}--"))
     }
 
     # Load in all data sets
@@ -66,7 +67,8 @@ builder <- function(..., posClass = "N", saveData = FALSE, normalData = 2000, pe
     detectR::nn_creator(
       posClass = posClass,
       normalData = normalData,
-      percent = percent
+      percent = percent,
+      logs = logs
     )
   cat(crayon::cyan(" }-- \n"))
 

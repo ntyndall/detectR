@@ -4,5 +4,5 @@
 \alias{nn_build}
 \title{Neural Network Builder}
 \usage{
-nn_build(training, dataScales)
+nn_build(training, dataScales, logs)
 }

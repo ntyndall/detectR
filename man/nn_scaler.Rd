@@ -4,5 +4,5 @@
 \alias{nn_scaler}
 \title{Neural Network Scale Data}
 \usage{
-nn_scaler(allData, dataScales)
+nn_scaler(allData, dataScales, logs)
 }

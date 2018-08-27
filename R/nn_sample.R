@@ -2,18 +2,20 @@
 #' @export
 
 
-nn_sample <- function(trainingData, posClass = "N", normalData = 2000, percent = 80) {
+nn_sample <- function(trainingData, posClass = "N", normalData = 2000, percent = 80, logs) {
 
   # Report on function
   maliciousData <- normalData %>% `*`(1 %>% `-`(percent %>% `/`(100)))
-  cat(
-    crayon::cyan(
-      paste0(
-        "\n ## Sample data set of size : ", trainingData %>% nrow, "\n ## to contain `",
-        normalData, "` normal events and `", maliciousData, "` malicious. \n"
+  if (logs) {
+    cat(
+      crayon::cyan(
+        paste0(
+          "\n ## 1) Sample data set of size : ", trainingData %>% nrow, "\n       to contain `",
+          normalData, "` normal events and `", maliciousData, "` malicious. \n"
+        )
       )
     )
-  )
+  }
 
   # Check what labels are available, and how many
   uniqLabels <- trainingData$label %>% unique
