@@ -5,9 +5,9 @@ library(purrr)
 library(magrittr)
 
 # Run the tests
-print("beginning the tests")
+cat("beginning the tests \n")
 results <- testthat::test_dir(
   path = "testthat",
   reporter = "summary"
 )
-print("tests are finished")
+cat("tests are finished \n")
