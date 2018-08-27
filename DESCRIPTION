@@ -19,5 +19,7 @@ Imports:
     caTools,
     caret,
     testthat,
+    organisR,
     covr
+Remotes: ntyndall/organisR
 RoxygenNote: 6.0.1

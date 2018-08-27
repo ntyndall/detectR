@@ -3,11 +3,17 @@ library(covr)
 library(hashmap)
 library(purrr)
 library(magrittr)
+library(organisR)
 
 # Run the tests
-cat("beginning the tests \n")
 results <- testthat::test_dir(
   path = "testthat",
   reporter = "summary"
 )
-cat("tests are finished \n")
+
+# Return response code
+quit(
+  save = 'no',
+  status = results %>% organisR::test_output(),
+  runLast = FALSE
+)
