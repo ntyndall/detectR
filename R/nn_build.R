@@ -12,7 +12,7 @@ nn_build <- function(training, dataScales, logs) {
     " ~",
     paste(dataScales$features, collapse = " + ")
   ) %>%
-    as.formula
+    stats::as.formula()
 
   # Calculate number of neurons
   neurons <- dataScales$features %>%

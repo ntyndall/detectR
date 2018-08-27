@@ -8,7 +8,7 @@
 #' @export
 
 
-nn_creator <- function(d.features, posClass = "N", normalData = 2000, percent = 80, logs) {
+nn_creator <- function(d.features, logs, posClass = "N", normalData = 2000, percent = 80) {
 
   # Sample the data set first
   d.features %<>% detectR::nn_sample(
@@ -36,6 +36,7 @@ nn_creator <- function(d.features, posClass = "N", normalData = 2000, percent = 
       logs = logs
     )
 
+  print("about to train?")
   # Build a neural network
   nn <- train.test$train %>%
     detectR::nn_build(
