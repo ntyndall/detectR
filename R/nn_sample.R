@@ -4,8 +4,12 @@
 
 nn_sample <- function(trainingData, posClass = "N", normalData = 2000, percent = 80, logs) {
 
+  # Calculate count of malicious data to include
+  maliciousData <- 1 %>%
+    `-`(percent %>% `/`(100)) %>%
+    `*`(normalData)
+
   # Report on function
-  maliciousData <- normalData %>% `*`(1 %>% `-`(percent %>% `/`(100)))
   if (logs) {
     cat(
       crayon::cyan(
@@ -36,25 +40,35 @@ nn_sample <- function(trainingData, posClass = "N", normalData = 2000, percent =
   # e.g. 'S', 'N', 'X' --> 'N', 'S', 'X'
   uniqLabels <- c(posClass, uniqLabels %>% subset(uniqLabels != posClass))
 
-  # Create a combined data set on types
-  allData <- data.frame(stringsAsFactors = FALSE)
+  # Get number for each of the other classes
+  maliciousData %<>%
+    `/`(uniqLabels %>% length %>% `-`(1)) %>%
+    round
 
-  for (i in 1:uLen) {
-    labData <- trainingData %>% subset(trainingData$label == uniqLabels[i])
+  # More clearer way of subsetting data
+  all.data <- lapply(
+    X = uniqLabels,
+    FUN = function(x) {
+      # Subset the data
+      sub.data <- trainingData %>% subset(trainingData$label == x)
 
-    # Base results of normal data (always in position one)
-    if (i %>% `==`(1)) {
-      pivotRow <- numRow <- normalData %>%
-        min(labData %>% nrow)
-    } else {
-      numRow <- `*`(pivotRow, `/`(`/`(100 - percent, 100), uLen - 1)) %>%
-        round
+      # Make sure enough data exists
+      rowsToSub <- sub.data %>%
+        nrow %>%
+        min(if (x %>% `==`(posClass)) normalData else maliciousData)
+
+      # Take a sample of the full data set
+      return(
+        sub.data %>%
+          dplyr::sample_n(
+            size = rowsToSub,
+            replace = FALSE
+          )
+      )
     }
-
-    # Sample from the complete data set included for a particular label
-    allData %<>% rbind(labData[labData %>% nrow %>% sample %>% head(numRow), ])
-  }
+  ) %>%
+    purrr::reduce(rbind)
 
   # Return sampled data
-  return(allData)
+  return(all.data)
 }
