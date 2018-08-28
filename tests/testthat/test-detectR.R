@@ -12,5 +12,8 @@ test_that("Check that each classification type can be achieved", {
   # Can multiple arguments be classified?
   expect_equal( c("this is a test", "more ../../../pwd") %>% detectR::detectR(), c("N", "B") )
 
+  # As a list?
+  expect_equal( list("this is a test", "more ../../../pwd") %>% detectR::detectR(), c("N", "B") )
+
 })
 
