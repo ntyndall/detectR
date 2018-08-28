@@ -2,7 +2,7 @@
 #' @export
 
 
-prepare <- function() {
+prepare <- function() { # nocov start
   # Load the large HTTP data set as d.http
   load(file = system.file("extdata", "d.http.rda", package = "detectR"))
 
@@ -46,4 +46,4 @@ prepare <- function() {
 
   # Save the data set
   save(d.normal, file = getwd() %>% paste0("/data/d.normal.rda"))
-}
+} # nocov end

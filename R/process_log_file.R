@@ -3,7 +3,7 @@
  #' @export
 
 
-process_log_file <- function(filepath) {
+process_log_file <- function(filepath) { # nocov start
 
   # Figure out number of lines in the file
   lineNumber <- system2(
@@ -77,4 +77,4 @@ process_log_file <- function(filepath) {
       fileLen = lineNumber
     )
   )
-}
+} # nocov end
