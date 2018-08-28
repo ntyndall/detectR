@@ -12,6 +12,7 @@ LazyData: true
 Imports:
     stats,
     utils,
+    dplyr,
     magrittr,
     purrr,
     neuralnet,

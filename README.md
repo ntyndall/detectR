@@ -3,6 +3,7 @@
 # detectR
 [![Build Status](https://travis-ci.org/ntyndall/detectR.svg?branch=master)](https://travis-ci.org/ntyndall/detectR)
 [![codecov](https://codecov.io/gh/ntyndall/detectR/branch/master/graph/badge.svg)](https://codecov.io/gh/ntyndall/detectR)
+
 This package is inspired by the likes of `libinject (https://github.com/client9/libinjection)`, and provides an easy to use interface for analysing and classifying strings of specific content built on the `neuralnet` package. A lot of the data used for building these models has been taken from various sources, including `libinject`, to build features and therefore construct training and test sets. This package comes pre-built with a detection mechanism, where the positive class of `"N"` represents the normal data source, and the following classes have been selected to try and identify other string sources
   - `S` : SQL injection
   - `X` : Cross-site scripting
