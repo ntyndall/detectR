@@ -4,6 +4,29 @@
 \alias{builder}
 \title{Builder}
 \usage{
-builder(..., posClass = "N", saveData = FALSE, normalData = 2000,
+builder(..., posClass = "N", saveData = FALSE, normalData = 10000,
   percent = 80, logs = TRUE)
+}
+\arguments{
+\item{posClass}{A character string, defining the positive class
+of a dataset, default to \code{N}.}
+
+\item{saveData}{A boolean value that also saves the model and
+scaler, as well as returning the results.}
+
+\item{normalData}{An integer value that defines the number of
+rows of data to sample from the positive class.}
+
+\item{percent}{A double value between 0 and 100 that defines the
+percentage of data that the normal data should make up the full
+data set, the remaining percent is split equally among the other
+negative classes.}
+
+\item{logs}{A boolean value which defines whether logs should be
+printed to screen, default to \code{TRUE}.}
+}
+\description{
+This function provides a useful flow for building
+ custom models based on the \code{neuralnet} package with
+ custom data sets and input.
 }
