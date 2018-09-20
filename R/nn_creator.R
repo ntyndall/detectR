@@ -8,7 +8,8 @@
 #' @export
 
 
-nn_creator <- function(d.features, logs, posClass = "N", normalData = 2000, percent = 80) {
+nn_creator <- function(d.features, logs, nnThresh,
+                       posClass = "N", normalData = 10000, percent = 80) {
 
   # Sample the data set first
   d.features %<>% detectR::nn_sample(
@@ -18,44 +19,32 @@ nn_creator <- function(d.features, logs, posClass = "N", normalData = 2000, perc
     logs = logs
   )
 
-  # Generate scales based on d.set
-  dataScales <- d.features %>%
-    detectR::nn_gen_scales(
-      logs = logs
+  # Scale and transform data
+  cat(crayon::cyan(" ## 2) Scaling data \n"))
+  scaled.info <- d.features %>%
+    mltools::scale_data(
+      cLabel = "label"
     )
 
-  # Actually scale any data required (then split it up)
-  d.features %<>% detectR::nn_scaler(
-    dataScales = dataScales,
-    logs = logs
-  )
-
-  # Split the data set up into training / testing
-  train.test <- d.features %>%
-    detectR::nn_split(
-      logs = logs
+  # Build Neural network
+  cat(crayon::cyan(" ## 3) Building neural network \n"))
+  results <- scaled.info$data %>%
+    mltools::gen_nn(
+      logs = logs,
+      NN = list(THRESH = nnThresh)
     )
 
-  # Build a neural network
-  nn <- train.test$train %>%
-    detectR::nn_build(
-      dataScales = dataScales,
-      logs = logs
-    )
-
-  # Test predictions
-  testResults <- train.test$test %>%
-    detectR::nn_test(
-      dataScales = dataScales,
-      nn = nn,
-      logs = logs
-    )
+  # Print out Confusion Matrix
+  cat(crayon::cyan(" ## 4) Reporting on results \n"))
+  accuracy <- results$totalStats$totAcc
+  cat(crayon::cyan("    ## Average accuracy:", accuracy %>% mean, "+/-", accuracy %>% stats::sd(), "\n"))
+  print(myres$CM)
 
   # Return the neural network and the data scales
   return(
     list(
-      nn = nn,
-      dataScales = dataScales
+      nn = results$model,
+      dataScales = scaled.info$scaler
     )
   )
 }
