@@ -5,7 +5,7 @@
 \title{Builder}
 \usage{
 builder(..., posClass = "N", saveData = FALSE, normalData = 10000,
-  percent = 80, logs = TRUE)
+  percent = 80, logs = TRUE, nnThresh = 0.01)
 }
 \arguments{
 \item{posClass}{A character string, defining the positive class

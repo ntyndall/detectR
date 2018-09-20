@@ -20,9 +20,12 @@
 #' @export
 
 
-builder <- function(..., posClass = "N", saveData = FALSE, normalData = 10000, percent = 80, logs = TRUE) {
+builder <- function(..., posClass = "N", saveData = FALSE,
+                    normalData = 10000, percent = 80, logs = TRUE,
+                    nnThresh = 0.01) {
+
   # Log header details first
-  cat(crayon::magenta("\n\n --{ Building Neural Network Model }-- \n\n"))
+  cat(crayon::cyan("\n\n --{ Building Neural Network Model }-- \n\n"))
 
   # Check input first
   input <- list(...)
@@ -85,6 +88,7 @@ builder <- function(..., posClass = "N", saveData = FALSE, normalData = 10000, p
       posClass = posClass,
       normalData = normalData,
       percent = percent,
+      nnThresh = nnThresh,
       logs = logs
     )
   cat(crayon::cyan(" }-- \n"))
