@@ -21,7 +21,10 @@ Imports:
     caret,
     testthat,
     organisR,
+    mltools,
     e1071,
     covr
-Remotes: ntyndall/organisR
+Remotes: 
+    ntyndall/organisR,
+    ntyndall/mltools
 RoxygenNote: 6.0.1
