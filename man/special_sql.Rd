@@ -4,5 +4,5 @@
 \alias{special_sql}
 \title{Special SQL}
 \usage{
-special_sql(args)
+special_sql(argument)
 }
