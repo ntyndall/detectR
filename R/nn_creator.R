@@ -38,7 +38,7 @@ nn_creator <- function(d.features, logs, nnThresh,
   cat(crayon::cyan(" ## 4) Reporting on results \n"))
   accuracy <- results$totalStats$totAcc
   cat(crayon::cyan("    ## Average accuracy:", accuracy %>% mean, "+/-", accuracy %>% stats::sd(), "\n"))
-  print(myres$CM)
+  print(results$CM)
 
   # Return the neural network and the data scales
   return(
