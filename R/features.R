@@ -45,9 +45,19 @@ features <- function(args) {
     lapply(function(x) x %>% paste(collapse = '')) %>%
     detectR::max_from_list()
 
-  # Column bind the two results together
-  feat.set <- cbind(scores, escores, chardist, results$counts) %>%
+  # Column bind all the results together
+  feat.set <- cbind(
+    scores,
+    escores,
+    chardist,
+    results$counts,
+    args %>% detectR::special_sql(),
+    args %>% detectR::special_xss(),
+    args %>% detectR::special_bash()
+  ) %>%
     as.data.frame
+
+  # Rename with the feature names
   names(feat.set) <- detectR::feat_names()
 
   # And return data frame back
