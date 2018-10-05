@@ -4,10 +4,10 @@
 test_that("Test that a neural network can be built", {
 
   result <- detectR::builder(
-    normalData = 200,
+    normalData = 400,
     percent = 80,
     logs = TRUE,
-    detectR::d.normal[1:200, ],
+    detectR::d.normal[1:400, ],
     detectR::d.sqli[1:100, ],
     detectR::d.xss[1:100, ],
     detectR::d.bash[1:100, ]

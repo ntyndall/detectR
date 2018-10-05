@@ -53,7 +53,7 @@ features <- function(args) {
     results$counts,
     args %>% detectR::special_sql(),
     args %>% detectR::special_xss(),
-    args %>% detectR::special_bash()
+    args %>% lapply(detectR::special_bash) %>% purrr::flatten_dbl() %>% as.matrix
   ) %>%
     as.data.frame
 
