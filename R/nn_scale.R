@@ -10,13 +10,13 @@ nn_scale <- function(feat.set) {
   # Scale all features
   scaled.data <- feat.set %>%
     scale(
-      center = myScaling$minScale,
-      scale = myScaling$maxScale %>% `-`(myScaling$minScale)
+      center = myScaling$sMin,
+      scale = myScaling$sMax %>% `-`(myScaling$sMin)
     ) %>%
     as.data.frame()
 
   # Rename column names as each feature
-  names(scaled.data) <- myScaling$features
+  names(scaled.data) <- myScaling$sMax %>% names
 
   return(scaled.data)
 }
