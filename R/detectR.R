@@ -32,17 +32,19 @@ detectR <- function(x, ...) {
   # Calculate features and scale
   scaled.set <- x %>%
     detectR::features() %>%
-    detectR::nn_scale()
+    detectR::nn_scale(
+      scaler = model.scales
+    )
 
   # Compute Predictions off Test Set
   predictions <- neuralnet::compute(
-    x = detectR::nn,
+    x = model.nn,
     covariate = scaled.set
   )
 
   # Find the predicted integer and map to label for every row
   return(
-    detectR::nn$model.list$response %>%
+    model.nn$model.list$response %>%
     `[`(predictions$net.result %>% apply(1, which.max))
   )
 }

@@ -4,5 +4,5 @@
 \alias{detectR}
 \title{detectR}
 \usage{
-detectR(x)
+detectR(x, ...)
 }
