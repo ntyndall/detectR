@@ -4,5 +4,5 @@
 \alias{nn_scale}
 \title{Neural Network Scaling}
 \usage{
-nn_scale(feat.set)
+nn_scale(feat.set, scaler)
 }

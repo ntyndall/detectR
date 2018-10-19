@@ -3,20 +3,17 @@
 #' @export
 
 
-nn_scale <- function(feat.set) {
-  # Lift the scaling list from the package
-  myScaling <- detectR::dataScales
-
+nn_scale <- function(feat.set, scaler) {
   # Scale all features
   scaled.data <- feat.set %>%
     scale(
-      center = myScaling$sMin,
-      scale = myScaling$sMax %>% `-`(myScaling$sMin)
+      center = scaler$sMin,
+      scale = scaler$sMax %>% `-`(scaler$sMin)
     ) %>%
     as.data.frame()
 
   # Rename column names as each feature
-  names(scaled.data) <- myScaling$sMax %>% names
+  names(scaled.data) <- scaler$sMax %>% names
 
   return(scaled.data)
 }
